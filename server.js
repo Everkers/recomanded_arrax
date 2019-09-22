@@ -10,6 +10,14 @@ const express = require('express'),
 
 //middlewars
 app.use(express.json())
+app.use((req,res)=>{
+    res.header('Access-Control-Allow-Origin' , '*');
+    res.header('Access-Control-Allow-Headers' , 'Origin , X-Requested-With , Content-Type , Accept , Authorization');
+    if(req.method === 'OPTIONS'){
+        req.header('Access-Control-Allow-Methods' , 'PUT , POST , PATCH , DELETE , GET')
+        return res.status(200).json({})
+    }
+})
 app.use('/api/upload' , uploadSong)
 app.use('/api/recomanded' , getRecSongs)
 app.use('/api/recomanded' , getById)
