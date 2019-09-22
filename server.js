@@ -5,19 +5,13 @@ const express = require('express'),
       uploadSong = require('./controllers/routes/uploadSong'), //Post route to post new song
       getById = require('./controllers/routes/getRecById'), //Get Song By Id
       deleteById = require('./controllers/routes/deleteById'), //Delete Song By Id
-      port = process.env.PORT || 5000
+      port = process.env.PORT || 5000,
+      cors =require('cors')
       require('dotenv/config')
 
 //middlewars
 app.use(express.json())
-app.use((req,res)=>{
-    res.header('Access-Control-Allow-Origin' , '*');
-    res.header('Access-Control-Allow-Headers' , 'Origin , X-Requested-With , Content-Type , Accept , Authorization');
-    if(req.method === 'OPTIONS'){
-        req.header('Access-Control-Allow-Methods' , 'PUT , POST , PATCH , DELETE , GET')
-        return res.status(200).json({})
-    }
-})
+app.use(cors())
 app.use('/api/upload' , uploadSong)
 app.use('/api/recomanded' , getRecSongs)
 app.use('/api/recomanded' , getById)
